@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { getUserDetails } from '../../services/userService';
 
-import UserSearch from '../../components/UserSearch';
+import Search from '../../components/Search';
 
 import { Container } from './styles';
 
@@ -30,7 +30,7 @@ function Home() {
 
   return (
     <Container>
-      <UserSearch
+      <Search
         name="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
