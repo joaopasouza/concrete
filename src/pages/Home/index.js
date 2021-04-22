@@ -1,32 +1,14 @@
-import React, { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
 
-import { getUserDetails } from '../../services/userService';
+import { UserContext } from '../../features/user';
 
 import Search from '../../components/Search';
 
 import { Container } from './styles';
 
 function Home() {
-  const history = useHistory();
-
+  const { fetchUser } = useContext(UserContext);
   const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
-
-  const fetchUser = useCallback(async () => {
-    const response = await getUserDetails(username);
-    if (response.login) {
-      setError('');
-      history.push(`/users/${response.login}`);
-    } else {
-      setError('Not found!!');
-    }
-  }, [username, history]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchUser();
-  };
 
   return (
     <Container>
@@ -34,10 +16,11 @@ function Home() {
         name="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        onSubmit={handleSubmit}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          fetchUser(username);
+        }}
       />
-
-      {error && <p>{error}</p>}
     </Container>
   );
 }

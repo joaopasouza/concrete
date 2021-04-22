@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.h1`
-  font-size: 60px;
+  font-size: 40px;
   color: #000000;
 
   & span {

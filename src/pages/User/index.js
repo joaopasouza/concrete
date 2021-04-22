@@ -1,40 +1,29 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getUserDetails, getUserRepos } from '../../services/userService';
-
+import Header from '../../components/Header';
 import Avatar from '../../components/Avatar';
 import RepoList from '../../components/RepoList';
+
+import { UserContext } from '../../features/user';
 
 function User() {
   const { username } = useParams();
 
-  const [userData, setUserData] = useState({});
-  const [userRepos, setUserRepos] = useState([]);
-
-  const fetchUser = useCallback(async () => {
-    const response = await getUserDetails(username);
-    setUserData(response);
-  }, [username]);
-
-  const fetchUserRepos = useCallback(async () => {
-    const response = await getUserRepos(username);
-    setUserRepos(response);
-  }, [username]);
+  const { user, repositories, fetchUser, fetchUserRepositories } = useContext(
+    UserContext,
+  );
 
   useEffect(() => {
-    fetchUser();
-    fetchUserRepos();
-  }, [username, fetchUser, fetchUserRepos]);
+    fetchUser(username);
+    fetchUserRepositories(username);
+  }, [username, fetchUser, fetchUserRepositories]);
 
   return (
     <div className="container-fluid">
-      <div className="row d-flex align-items-center">
+      <div className="row d-flex align-items-center mb-4 mt-4">
         <div className="col-lg-3">
-          <h1>
-            Github
-            <span>Search</span>
-          </h1>
+          <Header title="Github" subTitle="Search" />
         </div>
 
         <div className="col-lg-9">
@@ -54,14 +43,14 @@ function User() {
       <div className="row">
         <div className="col-lg-3">
           <Avatar
-            image={userData.avatar_url}
-            name={userData.name}
-            username={userData.login}
+            image={user.avatar_url}
+            name={user.name}
+            username={user.login}
           />
         </div>
 
         <div className="col-lg-9">
-          <RepoList data={userRepos} />
+          <RepoList data={repositories} />
         </div>
       </div>
     </div>

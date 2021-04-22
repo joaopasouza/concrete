@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 
 import RepoItem from '../RepoItem';
 
+import { List } from './styles';
+
 function RepoList({ data }) {
   return (
     <div>
-      <ul>
+      <List>
         {data.map((item) => (
           <RepoItem
             key={item.id}
@@ -16,7 +18,7 @@ function RepoList({ data }) {
             star={item.stargazers_count}
           />
         ))}
-      </ul>
+      </List>
     </div>
   );
 }
