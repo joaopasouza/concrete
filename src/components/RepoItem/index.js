@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as StarIcon } from '../../assets/icons/star.svg';
+import starIcon from '../../assets/icons/star.png';
 
 import { Container, Title, Description, Star } from './styles';
 
@@ -12,7 +12,7 @@ function RepoItem({ title, description, star }) {
       <Description>{description}</Description>
 
       <Star>
-        <StarIcon />
+        <img src={starIcon} alt="star_icon" />
         <span>{star}</span>
       </Star>
     </Container>

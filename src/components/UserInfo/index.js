@@ -1,40 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { ReactComponent as OrganizationIcon } from '../../assets/icons/organization.svg';
-import { ReactComponent as LocationIcon } from '../../assets/icons/location.svg';
-import { ReactComponent as StarIcon } from '../../assets/icons/star.svg';
-import { ReactComponent as RepositoryIcon } from '../../assets/icons/repository.svg';
-import { ReactComponent as FollowersIcon } from '../../assets/icons/followers.svg';
+import { List } from './styles';
 
-function UserInfo() {
+import organizationIcon from '../../assets/icons/organization.png';
+import locationIcon from '../../assets/icons/location.png';
+import followersIcon from '../../assets/icons/followers.png';
+import repositoriesIcon from '../../assets/icons/repositories.png';
+
+function UserInfo({ user }) {
   return (
     <div>
-      <div>
-        <OrganizationIcon />
-        <span>The Galactic empire</span>
-      </div>
+      <List>
+        <li>
+          <img src={organizationIcon} alt="organization_icon" />
+          <span>{user.company ? user.company : 'No Organization'}</span>
+        </li>
 
-      <div>
-        <LocationIcon />
-        <span>Tatooine</span>
-      </div>
+        <li>
+          <img src={locationIcon} alt="location_icon" />
+          <span>{user.location}</span>
+        </li>
 
-      <div>
-        <StarIcon />
-        <span>1000000</span>
-      </div>
+        <li>
+          <img src={repositoriesIcon} alt="repositories_icon" />
+          <span>{user.public_repos}</span>
+        </li>
 
-      <div>
-        <RepositoryIcon />
-        <span>6</span>
-      </div>
-
-      <div>
-        <FollowersIcon />
-        <span>1000</span>
-      </div>
+        <li>
+          <img src={followersIcon} alt="followers_icon" />
+          <span>{user.followers}</span>
+        </li>
+      </List>
     </div>
   );
 }
+
+UserInfo.propTypes = {
+  user: PropTypes.objectOf({}).isRequired,
+};
 
 export default UserInfo;

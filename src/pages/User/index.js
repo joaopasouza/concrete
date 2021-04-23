@@ -2,8 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
+import FormSearch from '../../components/FormSearch';
 import Avatar from '../../components/Avatar';
 import RepoList from '../../components/RepoList';
+import UserInfo from '../../components/UserInfo';
 
 import { UserContext } from '../../features/user';
 
@@ -27,16 +29,7 @@ function User() {
         </div>
 
         <div className="col-lg-9">
-          <form>
-            <div className="input-group">
-              <input type="text" className="form-control" />
-              <div className="input-group-append">
-                <button type="submit">
-                  <i className="fas fa-search" />
-                </button>
-              </div>
-            </div>
-          </form>
+          <FormSearch />
         </div>
       </div>
 
@@ -47,6 +40,8 @@ function User() {
             name={user.name}
             username={user.login}
           />
+
+          <UserInfo user={user} />
         </div>
 
         <div className="col-lg-9">
